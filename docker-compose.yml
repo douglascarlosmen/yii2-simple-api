@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      - ./:/var/www/html:delegated
+    ports:
+      - '8000:80'
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: yii2basic
+      MYSQL_USER: yii2user
+      MYSQL_PASSWORD: yii2password
+    ports:
+      - '3306:3306'
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
