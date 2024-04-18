@@ -12,6 +12,8 @@ services:
 
   db:
     image: mysql:8.0
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: yii2basic
@@ -20,7 +22,7 @@ services:
     ports:
       - '3306:3306'
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data-8:/var/lib/mysql
 
 volumes:
-  db-data:
+  db-data-8:
