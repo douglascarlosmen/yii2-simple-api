@@ -51,7 +51,8 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 'POST login' => 'auth/login',
-                'POST clients/create' => 'client/create'
+                'POST clients/create' => 'client/create',
+                'GET clients' => 'client/index'
             ],
         ],
         'jwt' => [

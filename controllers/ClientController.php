@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\web\UploadedFile;
 use yii\rest\ActiveController;
+use yii\data\ActiveDataProvider;
 use yii\filters\auth\HttpBearerAuth;
 use app\models\User;
 use app\models\Client;
@@ -20,7 +21,7 @@ class ClientController extends ActiveController
         unset($behaviors['authenticator']);
 
         $behaviors['authenticator'] = [
-            'class' => \yii\filters\auth\HttpBearerAuth::class,
+            'class' => HttpBearerAuth::class,
         ];
 
         return $behaviors;
@@ -29,7 +30,20 @@ class ClientController extends ActiveController
     public function actions()
     {
         $actions = parent::actions();
+
         unset($actions['create']);
+
+        $actions['index']['prepareDataProvider'] = function ($action) {
+            $modelClass = $this->modelClass;
+
+            return new ActiveDataProvider([
+                'query' => $modelClass::find(),
+                'pagination' => [
+                    'pageSize' => 10,
+                ],
+            ]);
+        };
+
         return $actions;
     }
 
