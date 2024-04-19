@@ -10,7 +10,7 @@ class JwtComponent
     public $key;
     public $alg;
 
-    public function __construct($key = 'secret_key', $alg = 'HS256')
+    public function __construct($key = 'VkeRNx6RMCa8fugIOQ3cTOBxYve6026di0MrlD6T1ko', $alg = 'HS256')
     {
         $this->key = $key;
         $this->alg = $alg;

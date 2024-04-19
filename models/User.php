@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use app\components\JwtComponent;
 
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -25,7 +26,12 @@ class User extends ActiveRecord implements IdentityInterface
      * {@inheritdoc}
      */
     public static function findIdentityByAccessToken($token, $type = null)
-    {        
+    {
+        $jwtComponent = new JwtComponent();
+        $decodedToken = $jwtComponent->decodeToken($token);
+        if ($decodedToken !== null && isset($decodedToken->data->id)) {
+            return static::findOne($decodedToken->data->id);
+        }
         return null;
     }
 
