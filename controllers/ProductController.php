@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\rest\ActiveController;
+use yii\data\ActiveDataProvider;
 use app\models\Product;
 use yii\web\UploadedFile;
 use yii\filters\auth\HttpBearerAuth;
@@ -28,7 +29,25 @@ class ProductController extends ActiveController
     public function actions()
     {
         $actions = parent::actions();
+
         unset($actions['create']);
+
+        $actions['index']['prepareDataProvider'] = function ($action) {
+            $query = Product::find();
+
+            $client_id = Yii::$app->request->get('client_id');
+            if ($client_id) {
+                $query->andWhere(['client_id' => $client_id]);
+            }
+
+            return new ActiveDataProvider([
+                'query' => $query,
+                'pagination' => [
+                    'pageSize' => 10,
+                ],
+            ]);
+        };
+
         return $actions;
     }
 

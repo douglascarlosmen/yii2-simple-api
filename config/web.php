@@ -54,6 +54,7 @@ $config = [
                 'POST clients/create' => 'client/create',
                 'GET clients' => 'client/index',
                 'POST products/create' => 'product/create',
+                'GET products' => 'product/index'
             ],
         ],
         'jwt' => [
