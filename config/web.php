@@ -52,7 +52,8 @@ $config = [
             'rules' => [
                 'POST login' => 'auth/login',
                 'POST clients/create' => 'client/create',
-                'GET clients' => 'client/index'
+                'GET clients' => 'client/index',
+                'POST products/create' => 'product/create',
             ],
         ],
         'jwt' => [
